@@ -1,55 +1,79 @@
 {
   "target": "bmv2",
-  "p4info": "build/basic.p4.p4info.txtpb",
-  "bmv2_json": "build/basic.json",
+  "p4info": "build/p4flow.p4.p4info.txtpb",
+  "bmv2_json": "build/p4flow.json",
   "table_entries": [
     {
-      "table": "MyIngress.ipv4_lpm",
-      "default_action": true,
-      "action_name": "MyIngress.drop",
-      "action_params": {}
-    },
-    {
-      "table": "MyIngress.ipv4_lpm",
+      "table": "MyIngress.tbl_setFlowID",
       "match": {
-        "hdr.ipv4.dstAddr": [
-          "10.0.1.1",
-          32
-        ]
+        "hdr.ipv4.dstAddr": ["10.0.3.3", 32]
       },
-      "action_name": "MyIngress.ipv4_forward",
+      "action_name": "MyIngress.set_flowID",
       "action_params": {
-        "dstAddr": "08:00:00:00:01:00",
-        "port": 2
+        "fid": 30
       }
     },
     {
       "table": "MyIngress.ipv4_lpm",
       "match": {
-        "hdr.ipv4.dstAddr": [
-          "10.0.2.2",
-          32
-        ]
-      },
-      "action_name": "MyIngress.ipv4_forward",
-      "action_params": {
-        "dstAddr": "08:00:00:00:02:00",
-        "port": 3
-      }
-    },
-    {
-      "table": "MyIngress.ipv4_lpm",
-      "match": {
-        "hdr.ipv4.dstAddr": [
-          "10.0.3.3",
-          32
-        ]
+        "meta.FlowID": 30
       },
       "action_name": "MyIngress.ipv4_forward",
       "action_params": {
         "dstAddr": "08:00:00:00:03:33",
         "port": 1
       }
+    },
+    {
+      "table": "MyEgress.generate_clone",
+      "default_action": true,
+      "action_name": "MyEgress.do_clone_e2e",
+      "action_params": {
+        "smac": "00:00:00:33:00:03"
+      }
+    }
+
+  ],
+
+  "default_entries": [
+    {
+      "table": "MyIngress.ipv4_lpm",
+      "default_action_name": "MyIngress.drop"
+    }
+  ],
+
+  "register_entries": [
+    {
+      "register_name": "MyEgress.sink_reg",
+      "index": 0,
+      "value": 167774723
+    },
+    {
+      "register_name": "MyEgress.pkt_thd_reg",
+      "index": 0,
+      "value": 1000000
+    },
+    {
+      "register_name": "MyEgress.byte_cnt_reg",
+      "index": 30,
+      "value": 0
+    },
+    {
+      "register_name": "MyEgress.timer_reg",
+      "index": 30,
+      "value": 0
+    },
+    {
+      "register_name": "MyEgress.index",
+      "index": 0,
+      "value": 0
+    }
+  ],
+
+  "mirroring_sessions": [
+    {
+      "session_id": 11,
+      "egress_port": 2
     }
   ]
 }

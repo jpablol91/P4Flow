@@ -193,3 +193,27 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Compiled JSON
+*.json
+!*p4app.json
+!topology.json
+!*-runtime.json
+
+*.pcap
+
+# Extracted solutions
+solution*/
+!solution/
+
+# Build folders
+build*/
+
+# Logs folders
+logs/
+
+# Vagrant
+.vagrant/
+
+# Mac OS
+*.DS_Store

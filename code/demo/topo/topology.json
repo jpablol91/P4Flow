@@ -27,13 +27,13 @@
     },
     "switches": {
         "s1": {
-            "runtime_json": "triangle-topo/s1-runtime.json"
+            "runtime_json": "topo/s1-runtime.json"
         },
         "s2": {
-            "runtime_json": "triangle-topo/s2-runtime.json"
+            "runtime_json": "topo/s2-runtime.json"
         },
         "s3": {
-            "runtime_json": "triangle-topo/s3-runtime.json"
+            "runtime_json": "topo/s3-runtime.json"
         }
     },
     "links": [
