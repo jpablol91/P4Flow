@@ -6,7 +6,7 @@ from mininet.log import setLogLevel, info
 from mininet.cli import CLI
 from mininet.link import TCLink
 
-from p4_mininet import P4Switch, P4Host
+from p4_mininet3 import P4Switch, P4Host
 
 import argparse
 from time import sleep
